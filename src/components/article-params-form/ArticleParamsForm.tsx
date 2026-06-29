@@ -27,21 +27,21 @@ type ArticleParamsFormProps = {
 };
 
 export const ArticleParamsForm = ({ onApply }: ArticleParamsFormProps) => {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isFormOpen, setIsFormOpen] = useState(false);
 	const [formState, setFormState] = useState<ArticleStateType>(defaultArticleState);
 
 	const asideRef = useRef<HTMLElement>(null);
 
 	const handleToggle = () => {
-		setIsOpen((prev) => !prev);
+		setIsFormOpen((prev) => !prev);
 	};
 
 	const handleClose = () => {
-		setIsOpen(false);
+		setIsFormOpen(false);
 	};
 
 	useCloseForm({
-		isOpen,
+		isOpen: isFormOpen,
 		onClose: handleClose,
 		rootRef: asideRef,
 	});
@@ -62,11 +62,11 @@ export const ArticleParamsForm = ({ onApply }: ArticleParamsFormProps) => {
 
 	return (
 		<>
-			<ArrowButton isOpen={isOpen} onClick={handleToggle} />
+			<ArrowButton isOpen={isFormOpen} onClick={handleToggle} />
 			<aside
 				ref={asideRef}
 				className={clsx(styles.container, {
-					[styles.container_open]: isOpen,
+					[styles.container_open]: isFormOpen,
 				})}>
 				<form className={styles.form} onSubmit={handleSubmit}>
 					<Text as='h2' size={31} weight={800} uppercase>

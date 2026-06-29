@@ -8,19 +8,17 @@ type UseCloseFormProps = {
 
 export const useCloseForm = ({ isOpen, onClose, rootRef }: UseCloseFormProps) => {
 	useEffect(() => {
+		if (!isOpen) return;
+
 		const handleEsc = (event: KeyboardEvent) => {
-			if (event.key === 'Escape' && isOpen) {
+			if (event.key === 'Escape') {
 				onClose();
 			}
 		};
 
 		const handleClickOutside = (event: MouseEvent) => {
 			const { target } = event;
-			if (
-				isOpen &&
-				target instanceof Node &&
-				!rootRef.current?.contains(target)
-			) {
+			if (target instanceof Node && !rootRef.current?.contains(target)) {
 				onClose();
 			}
 		};
